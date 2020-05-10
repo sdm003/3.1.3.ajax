@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Bootstrap CSS -->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>admin</title>
+</head>
+<body>
+
+<
+<div class="py-5" style="">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3" style="">
+                <form th:action="@{/admin/edit}" method="post">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">EDIT</h5>
+                                <button type="button" class="close btn btn-danger" data-dismiss="modal"
+                                        aria-label="Close">
+
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="id" th:hidden="id" class="col-form-label">ID</label>
+                                    <input type="text" th:hidden="id" class="form-control" id="id" name="id"
+                                           th:value="${user.id}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name" class="col-form-label">username:</label>
+                                    <input type="text" class="form-control" id="name" name="name"
+                                           th:value="${user.name}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="street" class="col-form-label">street:</label>
+                                    <input type="text" class="form-control" id="street" name="street"
+                                           th:value="${user.street}"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="age" class="col-form-label">age:</label>
+                                    <input type="number" class="form-control" id="age" name="age"
+                                           th:value="${user.age}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="col-form-label">password:</label>
+                                    <input type="text" class="form-control" id="password" name="password"
+                                           th:value="${user.password}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="role"><select id="role" name="roles" class="form-control">
+                                        <option th:value="'ADMIN'" th:text="ADMIN"></option>
+                                        <option th:value="'USER'" th:text="USER"></option>
+                                    </select></label>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <input th:action="@{/admin}"  type="submit" class="btn btn-secondary" value="close"/>
+                                <input type="submit" class="btn btn-primary" value="edit"/>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            </form>
+        </div>
+
+        <script
+                src="https://code.jquery.com/jquery-3.4.1.min.js"
+                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+                crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+                integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+                crossorigin="anonymous"
+                style=""></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                crossorigin="anonymous"
+                style=""></script>
+
+</body>
+</html>
