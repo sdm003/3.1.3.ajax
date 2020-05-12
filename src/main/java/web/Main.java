@@ -12,7 +12,6 @@ public class Main {
     @Autowired
     UserService userService;
 
-
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
     }

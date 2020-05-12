@@ -50,12 +50,11 @@ public class User implements UserDetails {
         this.street = street;
     }
 
-    public User(String name, int age, String street, String password, Set<Role> roles) {
+    public User(String name, int age, String street, String password) {
         this.name = name;
         this.age = age;
         this.street = street;
         this.password = password;
-        this.roles = roles;
     }
 
     public Long getId() {

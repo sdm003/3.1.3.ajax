@@ -26,7 +26,6 @@
     <a class=" btn btn-lg btn-dark btn-block  active flex-grow-0 d-flex align-items-end justify-content-ctr flex-row"
        href="#" data-toggle="modal" data-target="#modal-add" th:attr="data-target='#modal-add'" style="">ADD</a>
     <div class="modal modal-warning fade in" th:id="modal-add">
-        <form method="post" th:action="@{/admin/add}">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -38,18 +37,18 @@
                     <div class="modal-body">
 
                         <label>
-                            <input class="form-control" type="text" name="name" placeholder="name">
+                            <input class="form-control" type="text" id="nameAdd" placeholder="name">
                         </label>
                         <label>
-                            <input class="form-control" type="text" name="password" placeholder="password">
+                            <input class="form-control" type="text" id="passwordAdd" placeholder="password">
                         </label>
                         <label>
-                            <input class="form-control" type="number" name="age" placeholder="age">
+                            <input class="form-control" type="number" id="ageAdd" placeholder="age">
                         </label>
                         <label>
-                            <input class="form-control" type="text" name="street" placeholder="street">
+                            <input class="form-control" type="text" id="streetAdd" placeholder="street">
                         </label>
-                        <label for="role"><select id="roleAdd" name="roles" class="form-control">
+                        <label><select id="roleAdd" name="roleEdit" class="form-control">
                             <option selected th:value="'ADMIN'" th:text="ADMIN"></option>
                             <option th:value="'USER'" th:text="USER"></option>
                         </select></label>
@@ -58,7 +57,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="ADD USER">
+                        <input type="submit" class="btn btn-primary" id="addUser" value="ADD USER">
                     </div>
                 </div>
             </div>
@@ -73,42 +72,37 @@
                 <h2><a href="/user">User</a></h2>
                 <h2><a href="/admin">ADMIN</a></h2>
             </div>
-            <div style="">
+            <div class="py-5">
                 <div class="container">
-                    <div class="card">
-                        <div class="card-block">
-                            <table id="table" class="table table-hover">
-                                <thead>
-                                <tr>
-                                    <th>id</th>
-                                    <th>username</th>
-                                    <th>street</th>
-                                    <th>age</th>
-                                    <th>password</th>
-                                    <th>role</th>
-                                    <th>actions</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="user :${users}">
-                                    <td th:text=" ${user.id}"></td>
-                                    <td th:text=" ${user.username}"></td>
-                                    <td th:text=" ${user.street}"></td>
-                                    <td th:text=" ${user.age}"></td>
-                                    <td th:text=" ${user.password}"></td>
-                                    <td th:each="role: ${user.roles}" th:text="${role.getName()}"></td>
-                                    <td>
-                                        <a th:href="@{/admin/findUser/{id}(id=${user.id})}" id="eBtn"
-                                           class="btn btn-primary eBtn">EDIT</a>
-                                        <a th:href="@{/admin/delete/{id}(id=${user.id})}"
-                                           class="btn btn-danger">DELETE</a>
-                                    </td>
-                                </tbody>
-                            </table>
+                    <div class="row">
+                        <div style="">
+                            <div class="container">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <table class="table table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">id</th>
+                                                <th scope="col">name</th>
+                                                <th scope="col">street</th>
+                                                <th scope="col">age</th>
+                                                <th scope="col">password</th>
+                                                <th scope="col">role</th>
+                                                <th scope="col">actions</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="users-table">
+                                            <!--                                заполняется в аяксе-->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="myForm" id="myForm">
-                        <form th:action="@{/admin/edit}" method="post">
+                </div>
+            </div>
+        </div>
                             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                                  aria-labelledby="exampleModalLabel"
                                  aria-hidden="true">
@@ -123,33 +117,33 @@
                                         </div>
                                         <div class="modal-body">
                                             <div class="form-group">
-                                                <label for="id" th:hidden="id" class="col-form-label">ID</label>
-                                                <input type="text" th:hidden="id" class="form-control" id="id" name="id"
+                                                <label for="idEdit" th:hidden="id" class="col-form-label">ID</label>
+                                                <input type="text" th:hidden="id" class="form-control" id="idEdit" name="id"
                                                        value=""/>
                                             </div>
                                             <div class="form-group">
-                                                <label for="name" class="col-form-label">username:</label>
-                                                <input type="text" class="form-control" id="name" name="name"
+                                                <label for="nameEdit" class="col-form-label">username:</label>
+                                                <input type="text" class="form-control" id="nameEdit" name="name"
                                                        value=""/>
                                             </div>
                                             <div class="form-group">
-                                                <label for="street" class="col-form-label">street:</label>
-                                                <input type="text" class="form-control" id="street" name="street"
+                                                <label for="streetEdit" class="col-form-label">street:</label>
+                                                <input type="text" class="form-control" id="streetEdit" name="street"
                                                        value=""/>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="age" class="col-form-label">age:</label>
-                                                <input type="number" class="form-control" id="age" name="age"
+                                                <label for="ageEdit" class="col-form-label">age:</label>
+                                                <input type="number" class="form-control" id="ageEdit" name="age"
                                                        value=""/>
                                             </div>
                                             <div class="form-group">
-                                                <label for="password" class="col-form-label">password:</label>
-                                                <input type="text" class="form-control" id="password" name="password"
+                                                <label for="passwordEdit" class="col-form-label">password:</label>
+                                                <input type="text" class="form-control" id="passwordEdit" name="password"
                                                        value=""/>
                                             </div>
                                             <div class="form-group">
-                                                <label for="role"><select id="role" name="roles" class="form-control">
+                                                <label for="roleEdit"><select id="roleEdit" name="roleEdit" class="form-control">
                                                     <option th:value="'ADMIN'" th:text="ADMIN"></option>
                                                     <option th:value="'USER'" th:text="USER"></option>
                                                 </select></label>
@@ -163,7 +157,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -174,10 +167,8 @@
 
 
 
-<script
-        src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-        crossorigin="anonymous"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
         integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"
         style=""></script>
@@ -185,18 +176,167 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"
         style=""></script>
 <script>
-    $('#table #eBtn').on('click', function (event) {
-    event.preventDefault();
-    let href = $(this).attr('href');
-    $.get(href, function (user, status) {
-        $('#id').val(user.id);
-        $('#name').val(user.name);
-        $('#age').val(user.age);
-        $('#street').val(user.street);
-        $('#password').val(user.password);
+    //get all users
+    getAllUsers();
+
+    //функция получения всех юзеров
+    function getAllUsers() {
+        alert("value");
+
+        $.getJSON("http://localhost:8080/admin/rest", function (data) {
+            alert("asd");
+
+            let userRow = '';
+            let userId = '';
+            $.each(data, function (key, value) {
+                if (key === "id") {
+                    userRow += '<tr>';
+                    userRow += '<td>' + value.id + '</td>>';
+                    userId = value.id;
+                }
+                if (key === "name") {
+                    userRow += '<td>' + value.name + '</td>>';
+                }
+
+                if (key === "street") {
+                    userRow += '<td>' + value.street + '</td>>';
+                }
+
+                if (key === "age") {
+                    userRow += '<td>' + value.age + '</td>>';
+                }
+
+                if (key === "password") {
+                    userRow += '<td>' + value.password + '</td>>';
+                }
+                if (key === "roles") {
+                    let roles = value.roles;
+                    let roleName = '';
+                    $.each(roles, function (key1, value1) {
+                        if (key1 === "role") {
+                            roleName += value1.role;
+                        }
+                    });
+                    userRow += '<td>' + roleName + '</td>';
+                    userRow += '<td><a class="btn btn-primary" id="btnEditUser' + value.id + '" data-toggle="modal" data-target=".bd-example-modal-md" onclick="editUser(' + value.id + ')" role="button">Edit</a></td>';
+                    userRow += '<td><a class="btn btn-primary" id="btnDeleteUser" onclick="deleteUser(' + value.id + ')" role="button">Delete</a>' + '</td>';
+                    userRow += '</tr>';
+                }
+            });
+            $('#users-table').append(userRow);
+        });
+    }
+
+    // add user
+    $('#addUser').click(function () {
+        let user = {};
+        user.name = $('#nameAdd').val();
+        user.password = $('#passwordAdd').val();
+        user.age = $('#ageAdd').val();
+        user.street = $('#streetAdd').val();
+        user.roles = getCheckedRoles(); //$('#roleAdd').val();//
+        $.ajax({
+            url: 'http://localhost:8080/admin/add',
+            method: 'POST',
+            data: JSON.stringify(user),
+            contentType: 'application/json; charset=utf-8',
+            success: function () {
+                //очищаем форму Add
+                $('#nameAdd').val('');
+                $('#passwordAdd').val('');
+                $('#ageAdd').val('');
+                $('#streetAdd').val('');
+
+                let table = $('#users-table');
+                table.empty();
+                $('#modal-add').modal('close');
+                $('#nav-allusers-tab').tab('show');
+                getAllUsers();
+
+            },
+            error: function (error) {
+                alert("error Add: " + error);
+            }
+        });
     });
-    $('#myForm #exampleModal').modal();
+
+    //GET edit user
+    function editUser(id) {
+        $.ajax({
+            url: "http://localhost:8080/admin/findUser/" + id,
+            method: "GET",
+            success: function (editData) {
+                $('#modal-title').text('Edit User: ' + editData.username);
+                $('#idEdit').val(editData.id);
+                $('#nameEdit').val(editData.name);
+                $('#streetEdit').val(editData.street);
+                $('#ageEdit').val(editData.username);
+                let emptyPassword = '';
+                $('#modalEditNewPassword').val(emptyPassword);
+
+                //  var editUserString = JSON.stringify(editData);
+            }, error: function (error) {
+                alert(error);
+            }
+
+        });
+    }
+
+    // edit Post
+    $('#btnSaveEdit').click(function () {
+        let edit = {};
+        edit.id = $('#idEdit').val();
+        edit.name = $('#nameEdit').val();
+        edit.street = $('#streetEdit').val();
+        edit.age = $('#ageEdit').val();
+        edit.password = $('#modalEditNewPassword').val();
+        edit.roles = getCheckedRoles();
+        $.ajax({
+            url: 'http://localhost:8080/admin/edit',
+            data: JSON.stringify(edit),
+            method: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            success: function () {
+                let table = $('#users-table');
+                table.empty();
+                $('#exampleModal').modal('hide');
+                $('#nav-allusers-tab').tab('show');
+                getAllUsers();
+            }
+        })
     });
+
+    // //DELETE user
+    function deleteUser(id) {
+        $.ajax({
+            url: 'http://localhost:8080/admin/delete/' + id,
+            method: 'GET',
+            success: function () {
+                //стираем таблицу и заново отображаем всех юзеров
+                let table = $('#table');
+                table.empty();
+                getAllUsers();
+            },
+            error: function (error) {
+                alert(error);
+            }
+        })
+    }
+
+
+    function getCheckedRoles() {
+        let verseChoose = document.querySelector('select').getAttribute('id');
+        let singleValues = verseChoose === "#roleEdit" ? $("#roleAdd").val() : $("#roleEdit").val();
+        let roles = [];
+        let role = {};
+        if (singleValues === "ADMIN") {
+            role.id = "1";
+        } else if (singleValues === "USER") {
+            role.id = "2";
+        }
+        roles.push(role);
+        return roles;
+    }
 </script>
 
 </body>
